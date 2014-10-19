@@ -8,22 +8,22 @@ import os
 import sys
 import logging
 import argparse
+
 import markdown
 from bs4 import BeautifulSoup
+
+from mdcli import __version__
 # Future features:
 # TODO:2014-10-18:einar: implement file watch functionality
 # TODO:2014-10-18:einar: implement 'view in browser' functionality
-
-__version__ = '0.1.0'
-__author__ = 'Einar Uvsløkk'
-__description__ = 'Markdown to HTML command-line utility.'
 
 log = logging.getLogger(__name__)
 
 DOC_TEMPLATE = """<!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8"/></head>
+<meta charset="utf-8"/>
+</head>
 <body>
 {content}
 </body>
@@ -90,7 +90,10 @@ def generate_content(md_file):
 
 def parse_command_line(argv):
     """Parses the command line arguments, and setup log level."""
-    parser = argparse.ArgumentParser(description=__description__)
+
+    parser = argparse.ArgumentParser(prog='markdown-cli',
+        description='Markdown to HTML command-line utility.')
+
     parser.add_argument('infile', type=argparse.FileType('r'),
                         help='markdown document')
     parser.add_argument('-o', '--output', metavar='FILE', dest='outfile',
