@@ -1,14 +1,16 @@
 import os
 from setuptools import setup, find_packages
 
+from mdcli import __version__
+
 here = os.path.abspath(os.path.dirname(__file__))
 
 with open(os.path.join(here, 'DESCRIPTION.md')) as f:
     long_description = f.read()
 
 setup(
-    name='mdcli',
-    version='0.1.0',
+    name='markdown-cli',
+    version=__version__,
     description='Markdown to HTML command-line utility',
     long_description=long_description,
     url='http://github.com/einaru/python-mdcli',
@@ -38,7 +40,7 @@ setup(
     data_files=[],
     entry_points={
         'console_scripts': [
-            'mdcli=mdcli.cli:main'
+            'markdown-cli=mdcli.cli:main'
         ],
     },
 )
