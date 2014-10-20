@@ -34,8 +34,8 @@ setup(
     keywords='markdown cli html',
     packages=find_packages(exclude=[]),
     install_requires=[
-        'Markdown>=2.5.1',
-        'beautifulsoup4>=4.3.2',
+        'Markdown',
+        'beautifulsoup4',
     ],
     data_files=[],
     entry_points={

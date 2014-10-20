@@ -49,35 +49,47 @@ MARKDOWN_EXTENSIONS = [
 
 def create_html5_document(content, args, template=DOC_TEMPLATE, style=DOC_STYLE):
     """Creates the complete html5 document."""
-    soup = BeautifulSoup(template.format(content=content))
+    def create_title(filename):
+        return os.path.splitext(os.path.basename(filename))[0]
 
-    # Add document title
-    log.debug('using filename to create title')
-    title = os.path.splitext(args.infile.name)[0]
-    log.info('adding title to document')
-    title_tag = soup.new_tag('title')
-    soup.html.head.append(title_tag)
+    if args.vanilla:
+        soup = BeautifulSoup(content)
+    else:
+        soup = BeautifulSoup(template.format(content=content))
 
-    if not args.vanilla:
+        # Add document title
+        title = args.title or create_title(args.infile.name)
+        title_tag = soup.new_tag('title')
+        title_tag.append(title)
+        log.info('adding title: {}'.format(title))
+        soup.html.head.append(title_tag)
+
         # Add viewport meta
         meta_tag = soup.new_tag('meta')
         meta_tag['name'] = 'viewport'
         meta_tag['content'] = 'width=device-width,initial-scale=1.0'
+        log.info('adding meta: viewport')
         soup.html.head.append(meta_tag)
 
-        # Add document style
-        style_tag = soup.new_tag('style')
-        style_tag['type'] = 'text/css'
-        log.info('adding default stylesheet to document')
-        style_tag.append(style)
-        soup.html.head.append(style_tag)
+        if not args.no_css:
+            # Add stylesheet
+            style_tag = soup.new_tag('style')
+            style_tag['type'] = 'text/css'
+            style_tag.append(style)
+            log.info('adding stylesheet: inline')
+            soup.html.head.append(style_tag)
 
-        # Wrap tables
-        log.info('wrapping tables')
-        for table in soup.find_all('table'):
-            wrapper = soup.new_tag('div')
-            wrapper['class'] = 'table-wrapper'
-            table.wrap(wrapper)
+        if not args.no_wrap_table:
+            # Wrap tables
+            for table in soup.find_all('table'):
+                wrapper = soup.new_tag('div')
+                wrapper['class'] = 'table-wrapper'
+                log.info('adding .table-wrapper to table')
+                table.wrap(wrapper)
+
+    if args.prettify:
+        log.info('prettifying the html')
+        soup = soup.prettify()
 
     return soup
 
@@ -99,9 +111,17 @@ def parse_command_line(argv):
     parser.add_argument('-o', '--output', metavar='FILE', dest='outfile',
                         type=argparse.FileType('w'), default=sys.stdout,
                         help='write output to a file')
+    parser.add_argument('-t', '--title',
+                        help='set the html document title')
+    parser.add_argument('--no-css', action='store_true',
+                        help='do not include stylesheets')
+    parser.add_argument('--no-wrap-table', action='store_true',
+                        help='do not wrap tables in \'table-wrapper\' divs')
     parser.add_argument('--vanilla', action='store_true',
                         help='output vanilla html, i.e. do not wrap tables, '
-                        'or add stylesheets')
+                        'add stylesheets, or wrap in <html> tags')
+    parser.add_argument('--prettify', action='store_true',
+                        help='output prettyfied html, e.g. with indentation')
     parser.add_argument('--version', action='version',
                         version='%(prog)s {}'.format(__version__),
                         help='show the application version and exit')
