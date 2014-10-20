@@ -1,0 +1,21 @@
+# Maintainer: Einar Uvsløkk <einar.uvslokk@gmail.com>
+pkgname='python-markdown-cli'
+_pkgname='markdown-cli'
+pkgver='0.2'
+pkgrel=1
+pkgdesc='Markdown to HTML command-line utility.'
+arch=('any')
+url='https://github.com/einaru/markdown-cli'
+license=('GPL')
+depends=('python-markdown' 'python-beautifulsoup4')
+makedepends=('python-setuptools')
+provides=('markdown-cli')
+conflicts=('markdown-cli')
+source=("$_pkgname-$pkgver.tar.gz::https://github.com/einaru/$_pkgname/archive/v$pkgver.tar.gz")
+options=(!emptydirs)
+md5sums=('d03da704afb94d4e5c866dbbeb3d6ab3') # generate with makepkg -g
+
+package() {
+	cd "$srcdir/$_pkgname-$pkgver"
+	python3 setup.py install --prefix=/usr --root="$pkgdir/" --optimize=1
+}
