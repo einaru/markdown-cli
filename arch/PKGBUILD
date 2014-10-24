@@ -13,7 +13,8 @@ provides=('markdown-cli')
 conflicts=('markdown-cli')
 source=("$_pkgname-$pkgver.tar.gz::https://github.com/einaru/$_pkgname/archive/v$pkgver.tar.gz")
 options=(!emptydirs)
-md5sums=('d03da704afb94d4e5c866dbbeb3d6ab3') # generate with makepkg -g
+# generate with updpkgsums
+md5sums=('SKIP')
 
 package() {
 	cd "$srcdir/$_pkgname-$pkgver"
