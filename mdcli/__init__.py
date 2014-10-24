@@ -1,1 +1,6 @@
-__version__ = '0.2'
+version = '0.2.1'
+prog_name = 'markdown-cli'
+url = 'https://github.com/einaru/markdown-cli'
+author = 'Einar Uvsløkk'
+author_email = 'einar.uvslokk@gmail.com'
+description = 'Markdown to HTML command-line utility'
