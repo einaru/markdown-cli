@@ -64,7 +64,7 @@ bump_version() {
 	old=$1
 	new=$2
 
-	sed -i "s/$old/$new/g" $VERSION_FILE
+	sed -i "s/version = '$old'/version = '$new'/g" $VERSION_FILE
 	sed -i "s/pkgver='$old'/pkgver='$new'/g" $PKGBUILD_FILE
 }
 
@@ -74,7 +74,7 @@ cd $GITROOT
 
 VERSION_FILE="./mdcli/__init__.py"
 PKGBUILD_FILE="./arch/PKGBUILD"
-OLD_VERSION=$(cat $VERSION_FILE | sed 's/[^0-9.]//g')
+OLD_VERSION=$(cat $VERSION_FILE | grep version | sed 's/[^0-9.]//g')
 
 # Check for optional arguments
 case "$1" in
