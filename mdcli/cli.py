@@ -40,6 +40,7 @@ table th { text-align: left; border-bottom: 0.125em solid #888; }
 table td { border-bottom: 0.063em solid #888; }
 table th, table td { padding: 0.4em; }
 tbody tr:nth-child(odd) { background-color: #efefef; }
+pre { overflow-x: auto; }
 """
 
 MARKDOWN_EXTENSIONS = [
