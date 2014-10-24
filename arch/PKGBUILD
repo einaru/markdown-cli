@@ -1,7 +1,7 @@
 # Maintainer: Einar Uvsløkk <einar.uvslokk@gmail.com>
 pkgname='python-markdown-cli'
 _pkgname='markdown-cli'
-pkgver='0.2'
+pkgver='0.2.1'
 pkgrel=1
 pkgdesc='Markdown to HTML command-line utility.'
 arch=('any')

@@ -3,6 +3,30 @@
 Markdown to HTML command-line utility.
 
 
+## Dependencies
+
+- [Python](https://www.python.org) 3.x
+- [Python-Markdown](https://pythonhosted.org/Markdown/)
+- [BeautifulSoup](http://www.crummy.com/software/BeautifulSoup/) 4
+
+
+## Install
+
+``` bash
+$ curl -L  http://github.com/einaru/markdown-cli/archive/v0.2.1.tar.gz | tar xz
+$ cd markdown-cli-v0.2.1
+$ sudo python3 setup.py install
+```
+
+or
+
+```bash
+$ git clone https://github.com/einaru/markdown-cli
+$ cd markdown-cli
+$ sudo python3 setup.py install
+```
+
+
 ## License
 
 ```

@@ -1,4 +1,4 @@
-version = '0.2'
+version = '0.2.1'
 prog_name = 'markdown-cli'
 url = 'https://github.com/einaru/markdown-cli'
 author = 'Einar Uvsløkk'
